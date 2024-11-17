@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JunkFood", "JunkFood\JunkFood.csproj", "{EE0A4FD1-C4B4-4743-96F4-A99D2A896EA2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE0A4FD1-C4B4-4743-96F4-A99D2A896EA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE0A4FD1-C4B4-4743-96F4-A99D2A896EA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE0A4FD1-C4B4-4743-96F4-A99D2A896EA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE0A4FD1-C4B4-4743-96F4-A99D2A896EA2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4ED0A30-7F25-4171-A290-3E6ED3D39FA5}
+	EndGlobalSection
+EndGlobal

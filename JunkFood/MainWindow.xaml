@@ -1,0 +1,18 @@
+﻿<Window x:Class="JunkFood.MainWindow"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JunkFood"
+        mc:Ignorable="d"
+        Title="Junk Food." Height="450" Width="800">
+    <Grid Background="#FFC7A084">
+        <Button Content="Войти" HorizontalAlignment="Center" Margin="0,301,0,0" VerticalAlignment="Top" Height="25" Width="96" Click="Button_Click" BorderBrush="#FFF96464" Background="#FFD4D068" FontFamily="Arial Black" Foreground="#FFA43E3E"/>
+        <TextBox x:Name="login"  HorizontalAlignment="Center" Margin="0,194,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="146" Height="23" SelectionBrush="Black" FontFamily="Arial Black" Background="#FFD4D068" BorderBrush="#FFFF8080" Foreground="#FFA43E3E" />
+        <PasswordBox x:Name="pass" HorizontalAlignment="Center" Margin="0,257,0,0" VerticalAlignment="Top" Width="146" Height="23" SelectionBrush="Black" BorderBrush="#FFF36C6C" Background="#FFD4D068" Foreground="#FFA43E3E" FontFamily="Arial Black"/>
+        <Image Margin="312,10,308,0" Source="/AppData/jf_logo.png" Height="145" VerticalAlignment="Top"/>
+        <Label Content="Логин" HorizontalAlignment="Center" Margin="0,163,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFA43E3E" FontSize="18"/>
+        <Label Content="Пароль" HorizontalAlignment="Center" Margin="0,221,0,0" VerticalAlignment="Top" FontFamily="Arial Black" Foreground="#FFA43E3E" FontSize="18"/>
+        <Frame x:Name="FrmMain" d:IsHidden="True"/>
+    </Grid>
+</Window>
