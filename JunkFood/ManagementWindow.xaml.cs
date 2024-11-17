@@ -109,6 +109,29 @@ namespace JunkFood.AppData
 
         }
 
+        private void TheDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Delete)
+            {
+                var dataGrid = sender as DataGrid;
+           
+                try {
+                    if (dataGrid.SelectedItem != null )
+                    {
+
+                        Order a = dataGrid.SelectedItem as Order;
+                        if(a != null) 
+                            Postgres.Code($"DELETE FROM {GetTableName(dataGrid.Name)} WHERE id = {a.Id}");
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+        }
         private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
             var dataGrid = sender as DataGrid;
