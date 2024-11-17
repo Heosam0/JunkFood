@@ -185,7 +185,32 @@ namespace JunkFood.AppData
         }
 
 
+       private string GetTableName(string dataGridName)
+        {
+            string tableName = null;
 
+            if (dataGridName == "datagrid1")
+            {
+                tableName = "orders";
+            }
+            else if (dataGridName == "datagrid2")
+            {
+                tableName = "employees";
+            }
+            else if (dataGridName == "datagrid3")
+            {
+                tableName = "ingredients";
+            }
+            else if (dataGridName == "datagrid4")
+            {
+                tableName = "menu";
+            }
+            else if (dataGridName == "datagrid5")
+            {
+                tableName = "deliveries";
+            }
+            return tableName;
+        }
 
 
 
