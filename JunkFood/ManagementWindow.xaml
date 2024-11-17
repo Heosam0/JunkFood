@@ -15,9 +15,9 @@
                         <ColumnDefinition Width="125*"/>
                         <ColumnDefinition Width="624*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="datagrid1" ItemsSource="{Binding Orders}" AutoGenerateColumns="False" CellEditEnding="DataGrid_CellEditEnding" IsReadOnly="false" Background="#FFFFCECE" Grid.ColumnSpan="2" FontFamily="Arial" BorderBrush="#FFFFAF00">
+                    <DataGrid x:Name="datagrid1" ItemsSource="{Binding Orders}" AutoGenerateColumns="False" CellEditEnding="DataGrid_CellEditEnding" IsReadOnly="false" Background="#FFFFCECE" Grid.ColumnSpan="2" FontFamily="Arial" BorderBrush="#FFFFAF00" CanUserAddRows="True" AddingNewItem="AddingNewItem">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
                             <DataGridTextColumn Header="Имя" Binding="{Binding HowCall}" />
 
                             <DataGridTemplateColumn Header="Время заказа">
@@ -62,7 +62,7 @@
                                     </Style>
                                 </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Цена" Binding="{Binding TableNumber, UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn Header="Столик" Binding="{Binding TableNumber, UpdateSourceTrigger=PropertyChanged}">
                                 <DataGridTextColumn.EditingElementStyle>
                                     <Style TargetType="TextBox">
                                         <EventSetter Event="PreviewTextInput" Handler="NumberOnly_PreviewTextInput" />
@@ -80,9 +80,10 @@
                         <ColumnDefinition Width="19*"/>
                         <ColumnDefinition Width="346*"/>
                     </Grid.ColumnDefinitions>
-                    <DataGrid x:Name="datagrid2" ItemsSource="{Binding Employees}" AutoGenerateColumns="False" CellEditEnding="DataGrid_CellEditEnding" Background="#FFFFCECE" Grid.ColumnSpan="2" FontFamily="Arial" BorderBrush="#FFFFAF00">
+                    <DataGrid x:Name="datagrid2" ItemsSource="{Binding Employees}" AutoGenerateColumns="False" CellEditEnding="DataGrid_CellEditEnding" Background="#FFFFCECE" Grid.ColumnSpan="2" FontFamily="Arial" BorderBrush="#FFFFAF00" CanUserAddRows="True" AddingNewItem="AddingNewItem">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
+
                             <DataGridTextColumn Header="Имя" Binding="{Binding first_name}" />
                             <DataGridTextColumn Header="Фамилия" Binding="{Binding last_name}" />
                             <DataGridTextColumn Header="Отчество" Binding="{Binding Patronymic}" />
@@ -125,9 +126,10 @@
 
             <TabItem x:Name="tab2" Header="Ингридиенты" FontFamily="Arial Black" Background="#FFFB7D7D" BorderBrush="#FFFFAF00" Foreground="#FFA43E3E">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="datagrid3" ItemsSource="{Binding MenuItems}" AutoGenerateColumns="False"  CellEditEnding="DataGrid_CellEditEnding" CanUserAddRows = "false" IsReadOnly="false" Background="#FFFFCECE" FontFamily="Arial" FontSize="12">
+                    <DataGrid x:Name="datagrid3" ItemsSource="{Binding MenuItems}" AutoGenerateColumns="False"  CellEditEnding="DataGrid_CellEditEnding" CanUserAddRows="True" AddingNewItem="AddingNewItem" IsReadOnly="false" Background="#FFFFCECE" FontFamily="Arial" FontSize="12">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
+
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
                             <DataGridTextColumn Header="Количество" Binding="{Binding Unit, UpdateSourceTrigger=PropertyChanged}">
                                 <DataGridTextColumn.EditingElementStyle>
@@ -142,9 +144,10 @@
             </TabItem>
             <TabItem x:Name="tab3" Header="Меню" FontFamily="Arial Black" Background="#FFFB7D7D" BorderBrush="#FFFFAF00" Foreground="#FFA43E3E">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid x:Name="datagrid4"  CellEditEnding="DataGrid_CellEditEnding" AutoGenerateColumns="False"   CanUserAddRows = "True" IsReadOnly="false" Background="#FFFFCECE" FontFamily="Arial" FontSize="12" >
+                    <DataGrid x:Name="datagrid4"  CellEditEnding="DataGrid_CellEditEnding" AutoGenerateColumns="False"  CanUserAddRows="True" AddingNewItem="AddingNewItem" IsReadOnly="false" Background="#FFFFCECE" FontFamily="Arial" FontSize="12" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True" />
+
                             <DataGridTextColumn Header="Имя" Binding="{Binding Name}" />
                             <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
                             <DataGridTextColumn Header="Цена" Binding="{Binding Price, UpdateSourceTrigger=PropertyChanged}">

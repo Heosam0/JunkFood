@@ -37,6 +37,107 @@ namespace JunkFood.AppData
             }
         }
 
+        public void AddOrderToDatabase(Order order)
+        {
+            try
+            {
+                
+
+                    string query = "INSERT INTO orders (howcall, datetime, fordelivery, status, sum, tablenumber) " +
+                                   $"VALUES (@HowCall, @DateTime, @ForDelivery, '{order.Status}'::Status, {order.Sum}::money, @TableNumber::integer) RETURNING id";
+
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@HowCall", order.HowCall);
+                        command.Parameters.AddWithValue("@DateTime", order.DateTime);
+                        command.Parameters.AddWithValue("@ForDelivery", order.ForDelivery);
+                        command.Parameters.AddWithValue("@TableNumber", order.TableNumber);
+
+                        // Получение ID новой записи
+                        order.Id = (int)command.ExecuteScalar();
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении заказа: {ex.Message}", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void AddEmployeeToDatabase(Employee employee)
+        {
+            try
+            {
+
+                    string query = "INSERT INTO employees (first_name, last_name, patronymic, phone, birthday, start_date, post_id) " +
+                                   "VALUES (@FirstName, @LastName, @Patronymic, @Phone, @Birthday, @StartDate, @PostId) RETURNING id";
+
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@FirstName", employee.first_name);
+                        command.Parameters.AddWithValue("@LastName", employee.last_name);
+                        command.Parameters.AddWithValue("@Patronymic", employee.Patronymic);
+                        command.Parameters.AddWithValue("@Phone", employee.Phone);
+                        command.Parameters.AddWithValue("@Birthday", employee.Birthday);
+                        command.Parameters.AddWithValue("@StartDate", employee.Start_date);
+                        command.Parameters.AddWithValue("@PostId", employee.Post_id);
+
+                        employee.Id = (int)command.ExecuteScalar();
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении сотрудника: {ex.Message}");
+            }
+        }
+
+        public void AddMenuItemToDatabase(MenuItem menuItem)
+        {
+            try
+            {
+
+                    string query = "INSERT INTO menu (name, description, price) VALUES (@Name, @Description, @Price) RETURNING id";
+
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", menuItem.Name);
+                        command.Parameters.AddWithValue("@Description", menuItem.Description);
+                        command.Parameters.AddWithValue("@Price", menuItem.Price);
+
+                        menuItem.Id = (int)command.ExecuteScalar();
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении пункта меню: {ex.Message}");
+            }
+        }
+        public void AddIngredientToDatabase(MenuIngredient ingredient)
+        {
+            try
+            {
+
+                    string query = "INSERT INTO menu_ingredients (name, count) VALUES (@Name, @Count) RETURNING id";
+
+                    using (var command = new NpgsqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@Name", ingredient.Name);
+                        command.Parameters.AddWithValue("@Count", ingredient.Unit);
+
+                        ingredient.Id = (int)command.ExecuteScalar();
+                    }
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при добавлении ингредиента: {ex.Message}");
+            }
+        }
+
+
+
         public List<Employee> GetEmployees()
         {
             return connection.Query<Employee>("SELECT * FROM employees order by id").ToList();

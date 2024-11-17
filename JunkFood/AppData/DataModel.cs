@@ -43,7 +43,7 @@ namespace JunkFood.AppData
         [DisplayName("Статус")]
         public Status Status { get; set; }
         [DisplayName("Сумма")]
-        public decimal Sum { get; set; }
+        public float Sum { get; set; }
         [DisplayName("Стол")]
         public int TableNumber { get; set; }
     }

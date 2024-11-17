@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace JunkFood.AppData
 {
@@ -50,13 +49,12 @@ namespace JunkFood.AppData
             Postgres = new db();
             connection = Postgres.connection;
             Postgres.Initialize(login, password);
-            refresh();
             Employees = new ObservableCollection<Employee>();
             Orders = new ObservableCollection<Order>();
             MenuItems = new ObservableCollection<MenuItem>();
             MenuIngreds = new ObservableCollection<MenuIngredient>();
+            refresh();
 
-            LoadData();
 
         }
 
@@ -66,6 +64,11 @@ namespace JunkFood.AppData
 
         private void LoadData()
         {
+            Employees = new ObservableCollection<Employee>();
+            Orders = new ObservableCollection<Order>();
+            MenuItems = new ObservableCollection<MenuItem>();
+            MenuIngreds = new ObservableCollection<MenuIngredient>();
+
             var employees = Postgres.GetEmployees();
             foreach (var emp in employees)
             {
@@ -102,6 +105,7 @@ namespace JunkFood.AppData
             InitializeComponent();
             Postgres = new db();
             Postgres.Initialize(login, password);
+            LoadData();
 
         }
 
@@ -148,7 +152,7 @@ namespace JunkFood.AppData
 
                             if (!string.IsNullOrEmpty(boundProperty))
                             {
-                               // Преобразуем значение статуса в строку перед обновлением
+                                // Преобразуем значение статуса в строку перед обновлением
                                 UpdateDatabase(dataGrid.Name, id, boundProperty, newValue.ToString());
                             }
                         }
@@ -186,16 +190,15 @@ namespace JunkFood.AppData
             if (tableName != null)
             {
                 var updatedValues = new Dictionary<string, object> { { columnName, newValue } };
-                if(columnName == "Id" || columnName == "Price" || columnName == "Unit" || columnName == "Sum" || columnName == "Post_id" || columnName == "TableNumber")
-                      Postgres.Code($"UPDATE {tableName} SET {columnName} = {newValue} WHERE id = {id}");
+                if (columnName == "Id" || columnName == "Price" || columnName == "Unit" || columnName == "Sum" || columnName == "Post_id" || columnName == "TableNumber")
+                    Postgres.Code($"UPDATE {tableName} SET {columnName} = {newValue} WHERE id = {id}");
                 else
-                // Вызов метода обновления в классе db
-                Postgres.UpdateRecord(tableName, id, updatedValues);
+                    // Вызов метода обновления в классе db
+                    Postgres.UpdateRecord(tableName, id, updatedValues);
 
-                
-                    // Обновление интерфейса после изменения данных
-                    refresh();
-                
+
+                refresh();
+
             }
             else
             {
@@ -360,17 +363,70 @@ namespace JunkFood.AppData
             }
         }
 
-    }
-    public static class EnumExtensions
-    {
-        public static string GetDescription(this Enum value)
+
+        private void AddingNewItem(object sender, AddingNewItemEventArgs e)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
-            DescriptionAttribute[] attributes =
-                (DescriptionAttribute[])fi.GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : value.ToString();
+            if (sender is DataGrid dataGrid)
+            {
+                switch (dataGrid.Name)
+                {
+                    case "datagrid1":
+
+                        var newOrder = new Order
+                        {
+                            HowCall = "Новый заказ", // Значение по умолчанию
+                            DateTime = DateTime.Now,
+                            ForDelivery = false,
+                            Status = Status.В_процессе,
+                            Sum = 100.0f,
+                            TableNumber = 0
+                        };
+                        Postgres.AddOrderToDatabase(newOrder);
+                        e.NewItem = newOrder;
+                        break;
+
+                    case "datagrid2": // Employees
+                        var newEmployee = new Employee
+                        {
+                            first_name = "Новое имя",
+                            last_name = "Новая фамилия",
+                            Patronymic = "",
+                            Phone = "00000000000",
+                            Birthday = DateTime.Now.AddYears(-25),
+                            Start_date = DateTime.Now,
+                            Post_id = 1 // Замените на существующий PostId
+                        };
+                        Postgres.AddEmployeeToDatabase(newEmployee);
+
+                        e.NewItem = newEmployee;
+                        break;
+
+                    case "datagrid3": // MenuItems
+                        var newMenuItem = new MenuItem
+                        {
+                            Name = "Новое блюдо",
+                            Description = "{}",
+                            Price = 0
+                        };
+                        Postgres.AddMenuItemToDatabase(newMenuItem);
+                        e.NewItem = newMenuItem;
+                        break;
+
+                    case "datagrid4": // MenuIngredients
+                        var newIngredient = new MenuIngredient
+                        {
+                            Name = "Новый ингредиент",
+                            Unit = 0
+                        };
+                        Postgres.AddIngredientToDatabase(newIngredient);
+                        e.NewItem = newIngredient;
+                        break;
+
+
+                }
+                refresh();
+            }
         }
     }
-
 }
 
